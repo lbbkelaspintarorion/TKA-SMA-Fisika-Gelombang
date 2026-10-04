@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Ajar TKA Fisika SMA - Bab Gelombang</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .badge-team {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* Navigation Tabs */
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: white;
+            border-bottom: 2px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            overflow-x: auto;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn:hover {
+            color: var(--primary);
+            background-color: #f1f5f9;
+        }
+
+        .nav-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background-color: #f8fafc;
+        }
+
+        /* Main Container */
+        container {
+            max-width: 1000px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+            display: block;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin: 1.2rem 0 0.6rem 0;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Cards & Formula Box */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--primary);
+            padding: 1.2rem;
+            border-radius: 8px;
+        }
+
+        .formula-box {
+            background: #eff6ff;
+            border: 1px dashed var(--primary);
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin: 0.8rem 0;
+            font-weight: bold;
+            color: #1e40af;
+            text-align: center;
+        }
+
+        /* Simulators / Lab Virtual */
+        .sim-container {
+            background: #1e293b;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .sim-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem 0;
+            background: #334155;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .sim-controls label {
+            font-size: 0.9rem;
+        }
+
+        .sim-controls input[type=range] {
+            cursor: pointer;
+        }
+
+        canvas {
+            background: #0f172a;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Quiz Section */
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .quiz-options button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.7rem 1rem;
+            margin: 0.4rem 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .quiz-options button:hover {
+            background: #f1f5f9;
+            border-color: var(--primary);
+        }
+
+        .quiz-options button.selected {
+            background: #e0e7ff;
+            border-color: var(--primary);
+            font-weight: bold;
+        }
+
+        .btn-action {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover {
+            background: var(--primary-hover);
+        }
+
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #0f172a;
+            color: white;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.4rem; }
+            .nav-btn { padding: 0.8rem 0.8rem; font-size: 0.85rem; }
+            .tab-content { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Modul Interaktif TKA Fisika SMA</h1>
+        <p>Pendalaman Materi: Gelombang Bunyi & Gelombang Cahaya</p>
+        <span class="badge-team">Disusun oleh: Tim Penyusun LBB Kelas Pintar Orion</span>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav>
+        <button class="nav-btn active" onclick="switchTab('pendahuluan')">Pendahuluan</button>
+        <button class="nav-btn" onclick="switchTab('materi')">Materi Ajar</button>
+        <button class="nav-btn" onclick="switchTab('lab')">Lab Virtual</button>
+        <button class="nav-btn" onclick="switchTab('lkpd')">LKPD</button>
+        <button class="nav-btn" onclick="switchTab('quiz')">Quiz Interaktif</button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <container>
+
+        <!-- 1. PENDAHULUAN -->
+        <section id="pendahuluan" class="tab-content active">
+            <h2>Pendahuluan</h2>
+            <p>Selamat datang pada Modul Interaktif Persiapan <strong>Tes Kemampuan Akademik (TKA) Fisika SMA</strong>. Modul ini dirancang khusus untuk membantu siswa menguasai konsep dasar hingga konsep analisis tingkat tinggi pada materi Gelombang Bunyi dan Cahaya.</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Capaian Pembelajaran (Bunyi)</h3>
+                    <p>Menganalisis keterkaitan sifat bunyi dengan parameter gelombangnya berdasarkan peristiwa dalam kehidupan sehari-hari (Sumber Bunyi, Dawai, Pipa Organa, Intensitas, Efek Doppler, dan Layangan Bunyi).</p>
+                </div>
+                <div class="card">
+                    <h3>Capaian Pembelajaran (Cahaya)</h3>
+                    <p>Menganalisis keterkaitan sifat cahaya dengan peristiwa sehari-hari serta penerapannya pada pemantulan, pembiasan, interferensi, difraksi, polarisasi, dan alat optik[cite: 2].</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">Petunjuk Penggunaan Modul:</h3>
+            <ol>
+                <li>Pelajari ringkasan rumus dan konsep pada menu <strong>Materi Ajar</strong>.</li>
+                <li>Simulasikan fenomena Efek Doppler dan Interferensi pada menu <strong>Lab Virtual</strong>.</li>
+                <li>Kerjakan lembar kerja terpandu pada menu <strong>LKPD</strong>.</li>
+                <li>Uji pemahaman dan kesiapan TKA Anda pada menu <strong>Quiz Interaktif</strong>.</li>
+            </ol>
+        </section>
+
+        <!-- 2. MATERI AJAR -->
+        <section id="materi" class="tab-content">
+            <h2>Materi Ajar Terpadu</h2>
+
+            <!-- Gelombang Bunyi -->
+            <h3>A. Gelombang Bunyi</h3>
+            <p>Gelombang bunyi merupakan gelombang mekanik longitudinal yang memerlukan medium untuk merambat (gas, cair, atau padat)[cite: 1].</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>1. Cepat Rambat Bunyi</h4>
+                    <p>Ditentukan oleh sifat medium perambatannya[cite: 1]:</p>
+                    <div class="formula-box">
+                        Gas: v = √(γ · R · T / M)<br>
+                        Padat: v = √(E / ρ) | Cair: v = √(B / ρ)
+                    </div>
+                </div>
+                <div class="card">
+                    <h4>2. Dawai & Pipa Organa</h4>
+                    <p>Frekuensi nada ke-n pada Dawai / Pipa Organa Terbuka[cite: 1]:</p>
+                    <div class="formula-box">fn = ((n + 1) · v) / (2L)</div>
+                    <p>Pipa Organa Tertutup[cite: 1]:</p>
+                    <div class="formula-box">fn = ((2n + 1) · v) / (4L)</div>
+                </div>
+                <div class="card">
+                    <h4>3. Intensitas & Taraf Intensitas</h4>
+                    <div class="formula-box">
+                        I = P / A = P / (4πr²)<br>
+                        TI = 10 log(I / I₀) (dB)
+                    </div>
+                </div>
+                <div class="card">
+                    <h4>4. Efek Doppler & Pelayangan</h4>
+                    <div class="formula-box">
+                        fp = ((v ± vp) / (v ∓ vs)) · fs<br>
+                        f_layangan = |f₁ - f₂|
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gelombang Cahaya -->
+            <h3 style="margin-top: 2rem;">B. Gelombang Cahaya</h3>
+            <p>Gelombang cahaya merupakan gelombang elektromagnetik transversal yang dapat merambat tanpa medium[cite: 2]. Sifat dasarnya meliputi pemantulan, pembiasan, interferensi, difraksi, dispersi, dan polarisasi[cite: 2].</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>1. Pemantulan & Pembiasan</h4>
+                    <p>Hukum Snellius Pembiasan[cite: 2]:</p>
+                    <div class="formula-box">n₁ · sin(i) = n₂ · sin(r)</div>
+                    <p>Cermin & Lensa[cite: 2]:</p>
+                    <div class="formula-box">1/f = 1/s + 1/s' | M = |s'/s|</div>
+                </div>
+                <div class="card">
+                    <h4>2. Interferensi & Difraksi Celah Tunggal</h4>
+                    <p>Interferensi Celah Ganda (Terang/Maksimum)[cite: 2]:</p>
+                    <div class="formula-box">d · (y / L) = n · λ</div>
+                    <p>Difraksi Celah Tunggal (Gelap/Minimum)[cite: 2]:</p>
+                    <div class="formula-box">d · sin(θ) = n · λ</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. LABORATORIUM VIRTUAL -->
+        <section id="lab" class="tab-content">
+            <h2>Laboratorium Virtual Interaktif</h2>
+            <p>Simulasikan fenomena **Efek Doppler** secara *real-time*. Atur kecepatan sumber bunyi dan amati perubahan panjang gelombang yang diterima pendengar[cite: 1].</p>
+
+            <div class="sim-container">
+                <h3>Simulasi Efek Doppler</h3>
+                <div class="sim-controls">
+                    <label>Kecepatan Sumber (vs): <span id="vSourceVal">0</span> m/s</label>
+                    <input type="range" id="vSource" min="0" max="100" value="0" oninput="updateSim()">
+                    
+                    <label>Frekuensi Sumber (fs): <span id="fSourceVal">400</span> Hz</label>
+                    <input type="range" id="fSource" min="200" max="800" value="400" oninput="updateSim()">
+                    
+                    <button class="btn-action" style="margin-top:0;" onclick="toggleSim()">Mulai / Pause</button>
+                </div>
+
+                <canvas id="dopplerCanvas" width="600" height="200"></canvas>
+                
+                <div style="margin-top: 1rem; text-align: left; background: #334155; padding: 1rem; border-radius: 6px;">
+                    <p><strong>Hasil Analisis Parameter Interaktif:</strong></p>
+                    <p>Frekuensi Terdeteksi Pendengar (Depan): <strong><span id="fpFront">400</span> Hz</strong></p>
+                    <p>Frekuensi Terdeteksi Pendengar (Belakang): <strong><span id="fpBack">400</span> Hz</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. LKPD -->
+        <section id="lkpd" class="tab-content">
+            <h2>Lembar Kerja Peserta Didik (LKPD) Interaktif</h2>
+            <p>Isilah analisis eksplorasi mandiri berikut sebagai latihan konsep. Jawab pada kolom yang disediakan untuk memeriksa pemahaman Anda.</p>
+
+            <div style="margin-top: 1rem;">
+                <div class="card" style="margin-bottom: 1rem;">
+                    <h4>Aktivitas 1: Analisis Sirine Ambulans (Gelombang Bunyi)</h4>
+                    <p>Sebuah ambulans bergerak mendekati pengamat yang diam di pinggir jalan sambil membunyikan sirine[cite: 1].</p>
+                    <br>
+                    <label><strong>Pertanyaan:</strong> Mengapa nada sirine terdengar lebih tinggi saat mendekat daripada saat menjauh? Jelaskan berdasarkan parameter gelombangnya!</label>
+                    <textarea id="lkpd1" rows="3" style="width:100%; margin-top:0.5rem; padding:0.5rem; border-radius:4px; border:1px solid #cbd5e1;" placeholder="Tuliskan jawaban analisis Anda di sini..."></textarea>
+                    <button class="btn-action" onclick="checkLKPD(1)">Cek Kunci Analisis</button>
+                    <div id="feedback1" style="display:none; margin-top:0.8rem; padding:0.8rem; background:#e0f2fe; border-radius:4px; color:#0369a1;"></div>
+                </div>
+
+                <div class="card">
+                    <h4>Aktivitas 2: Interferensi Cahaya pada Lapisan Tipis</h4>
+                    <p>Saat gelembung sabun terkena sinar matahari, tampak warna-warni pelangi pada permukaannya[cite: 2].</p>
+                    <br>
+                    <label><strong>Pertanyaan:</strong> Sifat gelombang cahaya apakah yang menyebabkan timbulnya warna-warni tersebut?</label>
+                    <textarea id="lkpd2" rows="3" style="width:100%; margin-top:0.5rem; padding:0.5rem; border-radius:4px; border:1px solid #cbd5e1;" placeholder="Tuliskan jawaban analisis Anda di sini..."></textarea>
+                    <button class="btn-action" onclick="checkLKPD(2)">Cek Kunci Analisis</button>
+                    <div id="feedback2" style="display:none; margin-top:0.8rem; padding:0.8rem; background:#e0f2fe; border-radius:4px; color:#0369a1;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. QUIZ -->
+        <section id="quiz" class="tab-content">
+            <h2>Quiz Interaktif TKA Fisika</h2>
+            <p>Pilihlah satu jawaban yang paling tepat. Nilai Anda akan dihitung secara otomatis secara instan.</p>
+
+            <div id="quizContainer" style="margin-top: 1.5rem;"></div>
+
+            <button class="btn-action" onclick="submitQuiz()">Kirim Jawaban & Lihat Hasil</button>
+            <div id="quizResult" class="quiz-result"></div>
+        </section>
+
+    </container>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Modul Digital TKA Fisika SMA — Developed by <strong>Tim Penyusun LBB Kelas Pintar Orion</strong></p>
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+        // Tab Navigation
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.nav-btn');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            btns.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            if(tabId === 'lab') {
+                initCanvas();
+            }
+        }
+
+        // Quiz Data
+        const quizData = [
+            {
+                q: "1. Sebuah mobil pemadam kebakaran bergerak dengan kecepatan 20 m/s mendekati seseorang yang berdiri diam di tepi jalan. Jika frekuensi sirine 680 Hz dan cepat rambat bunyi di udara 340 m/s, maka frekuensi yang didengar orang tersebut adalah...[cite: 1]",
+                options: ["640 Hz", "680 Hz", "720 Hz", "760 Hz"],
+                answer: 2 // Index 2 -> 720 Hz
+            },
+            {
+                q: "2. Suatu sumber bunyi memiliki taraf intensitas 60 dB. Jika terdapat 100 sumber bunyi identik yang berbunyi secara bersamaan, taraf intensitas totalnya menjadi...[cite: 1]",
+                options: ["70 dB", "80 dB", "600 dB", "120 dB"],
+                answer: 1 // Index 1 -> 80 dB
+            },
+            {
+                q: "3. Sifat gelombang cahaya yang membuktikan bahwa cahaya merupakan gelombang transversal dan dapat dikutubkan adalah...[cite: 2]",
+                options: ["Interferensi", "Difraksi", "Refraksi", "Polarisasi"],
+                answer: 3 // Index 3 -> Polarisasi
+            },
+            {
+                q: "4. Cahaya monokromatis melewati celah ganda yang terpisah pada jarak 0.2 mm. Jika pola interferensi terang ke-2 terbentuk pada jarak 6 mm dari terang pusat pada layar yang berjarak 1 meter, maka panjang gelombang cahaya tersebut adalah...[cite: 2]",
+                options: ["400 nm", "500 nm", "600 nm", "700 nm"],
+                answer: 2 // Index 2 -> 600 nm
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((data, qIdx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'quiz-question';
+                
+                let html = `<p><strong>${data.q}</strong></p><div class="quiz-options">`;
+                data.options.forEach((opt, oIdx) => {
+                    html += `<button type="button" onclick="selectOption(${qIdx}, ${oIdx})" id="opt_${qIdx}_${oIdx}">${opt}</button>`;
+                });
+                html += `</div>`;
+                
+                qDiv.innerHTML = html;
+                container.appendChild(qDiv);
+            });
+        }
+
+        const userAnswers = {};
+
+        function selectOption(qIdx, oIdx) {
+            userAnswers[qIdx] = oIdx;
+            quizData[qIdx].options.forEach((_, idx) => {
+                const btn = document.getElementById(`opt_${qIdx}_${idx}`);
+                if (idx === oIdx) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const total = quizData.length;
+
+            quizData.forEach((data, qIdx) => {
+                if (userAnswers[qIdx] === data.answer) {
+                    score++;
+                }
+            });
+
+            const finalScore = (score / total) * 100;
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.display = 'block';
+
+            if (finalScore >= 75) {
+                resultDiv.style.backgroundColor = '#d1fae5';
+                resultDiv.style.color = '#065f46';
+                resultDiv.innerHTML = `Selamat! Skor Anda: ${finalScore}/100. Anda telah menguasai materi TKA Gelombang ini dengan sangat baik!`;
+            } else {
+                resultDiv.style.backgroundColor = '#fee2e2';
+                resultDiv.style.color = '#991b1b';
+                resultDiv.innerHTML = `Skor Anda: ${finalScore}/100. Silakan pelajari kembali ringkasan materi dan coba lagi!`;
+            }
+        }
+
+        // LKPD Verification
+        function checkLKPD(no) {
+            const fb = document.getElementById(`feedback${no}`);
+            fb.style.display = 'block';
+            if (no === 1) {
+                fb.innerHTML = "<strong>Kunci Analisis:</strong> Saat sumber bunyi mendekati pengamat, panjang gelombang di depan sumber mengalami pemampatan (mencecil), sehingga frekuensi gelombang bunyi yang diterima pendengar meningkat (suara terdengar lebih tinggi)[cite: 1].";
+            } else if (no === 2) {
+                fb.innerHTML = "<strong>Kunci Analisis:</strong> Fenomena tersebut terjadi akibat **Interferensi Cahaya** pada lapisan tipis gelembung sabun[cite: 2], di mana gelombang cahaya yang dipantulkan oleh permukaan luar dan dalam gelembung saling berinterferensi secara konstruktif dan destruktif.";
+            }
+        }
+
+        // Virtual Lab Canvas Animation
+        let canvas, ctx;
+        let isRunning = true;
+        let waves = [];
+        let sourceX = 300;
+        let time = 0;
+
+        function initCanvas() {
+            canvas = document.getElementById('dopplerCanvas');
+            if(!canvas) return;
+            ctx = canvas.getContext('2d');
+            updateSim();
+        }
+
+        function updateSim() {
+            const vs = parseInt(document.getElementById('vSource').value);
+            const fs = parseInt(document.getElementById('fSource').value);
+            document.getElementById('vSourceVal').innerText = vs;
+            document.getElementById('fSourceVal').innerText = fs;
+
+            // Hitung Doppler sederhana (v_udara = 340)
+            const v = 340;
+            const fpF = Math.round((v / (v - vs)) * fs);
+            const fpB = Math.round((v / (v + vs)) * fs);
+
+            document.getElementById('fpFront').innerText = fpF;
+            document.getElementById('fpBack').innerText = fpB;
+        }
+
+        function toggleSim() {
+            isRunning = !isRunning;
+        }
+
+        function animate() {
+            if (canvas && ctx) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                const vs = parseInt(document.getElementById('vSource').value) / 10;
+                
+                if (isRunning) {
+                    time++;
+                    sourceX += vs;
+                    if (sourceX > 550) sourceX = 50;
+
+                    if (time % 15 === 0) {
+                        waves.push({ x: sourceX, y: 100, r: 5 });
+                    }
+                }
+
+                // Render Poin Sumber
+                ctx.fillStyle = '#f59e0b';
+                ctx.beginPath();
+                ctx.arc(sourceX, 100, 8, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Render Gelombang
+                ctx.strokeStyle = '#06b6d4';
+                ctx.lineWidth = 1.5;
+                for (let i = 0; i < waves.length; i++) {
+                    let w = waves[i];
+                    if (isRunning) w.r += 2;
+                    ctx.beginPath();
+                    ctx.arc(w.x, w.y, w.r, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    if (w.r > 300) {
+                        waves.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // Initialize App
+        window.onload = function() {
+            renderQuiz();
+            initCanvas();
+            animate();
+        };
+    </script>
+</body>
+</html>
